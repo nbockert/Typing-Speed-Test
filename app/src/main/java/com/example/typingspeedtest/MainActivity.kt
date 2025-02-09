@@ -3,17 +3,16 @@ package com.example.typingspeedtest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.typingspeedtest.ui.theme.TypingSpeedTestTheme
+
 import android.content.Context
-import android.util.Xml
+
 import org.xmlpull.v1.XmlPullParser
 import androidx.compose.ui.Alignment
 
@@ -68,10 +67,7 @@ fun TypingSpeedTestScreen() {
             delay(5000)
 
 
-//            coroutineScope.launch {
-
-
-                // Create a new list that replaces untyped words
+                // Source: ChatGPT
                 currentWords = currentWords.map { word ->
                     if (word != textTyped.text.trim()) {
                         val availableWords = words.filterNot { currentWords.contains(it) || typedWords.value.contains(it) }
@@ -113,9 +109,7 @@ fun TypingSpeedTestScreen() {
                 Text(text = word, style = MaterialTheme.typography.bodyLarge)
             }
         }
-//        Spacer(
-//            modifier = Modifier.height(10.dp)
-//        )
+
         TextField(
             value = textTyped,
             onValueChange = { newText ->
@@ -127,6 +121,7 @@ fun TypingSpeedTestScreen() {
                         typedWords.value.add(newText.text.trim())
                         println("After update - Current Words: $currentWords | Typed Words: ${typedWords.value}")
                         correctCount++
+                        //source: chatGPT
                         val elapsedTimeInSeconds = (System.currentTimeMillis() - startTime) / 1000.0
                         wpm = ((correctCount / elapsedTimeInSeconds) * 60).toInt()
 
@@ -141,11 +136,6 @@ fun TypingSpeedTestScreen() {
 
                     }
 
-                    // Add new word if needed
-//                        if (currentWords.size < 5) {
-//                            val newWord = words.filterNot { currentWords.contains(it) }.random()
-//                            currentWords.add(newWord)
-//                        }
 
                 }
             },
